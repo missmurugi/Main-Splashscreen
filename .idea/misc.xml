@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/drawable/splash_background.xml" value="0.1735" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin_page.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_admin2.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_driver_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_head_teacher_sign_up.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_parent_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_reset_password_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_reset_password_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_reset_password_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_reset_password_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_reset_password_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_teacher.xml" value="0.2" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_teacher_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/app_bar_dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/app_bar_dashboard_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/app_bar_dashboard_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/app_bar_dashboard_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/app_bar_dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_admin2.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_driver.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_head_teacher.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/content_dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/fragment_gallery.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/fragment_slideshow.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/nav_header_dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/nav_header_dashboard_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/nav_header_dashboard_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/nav_header_dashboard_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/nav_header_dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/splashfile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/activity_dashboard_admin_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/activity_dashboard_driver_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/dashboard_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/dashboard_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/dashboard_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/menu/dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1735" />
+        <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1735" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_absentee.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_admin_add.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_admin_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_dashboard_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_dashboard_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_dashboard_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_driver.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_driver_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_emergencies.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_head_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_head_teacher_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_maps.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_parent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_parent_dashboard.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_parent_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_teacher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Irene/SplashScreen-main/app/src/main/res/layout/activity_teacher_sign_up.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/layout/activity_admin_sign_up.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
