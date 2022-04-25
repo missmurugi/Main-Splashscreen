@@ -26,6 +26,7 @@ public class Teacher extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     EditText edtteachername,edtteacherpass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +38,23 @@ public class Teacher extends AppCompatActivity {
         TextView tvteachersignup = (TextView) findViewById(R.id.tvteachersignup);
         TextView tvteacherforgot = (TextView) findViewById(R.id.tvteacherforgot);
 
-        // fetch test
-        fetchAllClassTeacher();
+        //loginteacher
+        loginClassTeacher();
 
         teacherlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get all the values
-                String classteachername = edtteachername.getText().toString();
-                String classteacherpass = edtteacherpass.getText().toString();
+                String teachersignupname = edtteachername.getText().toString();
+                String teachersignuppass = edtteacherpass.getText().toString();
 
-                boolean check = validateInfo(classteachername,classteacherpass);
+                boolean check = validateInfo(teachersignupname,teachersignuppass);
                 if (check==true){
-                    Intent intent = new Intent(Teacher.this, DashboardTeacher.class);
-                    startActivity(intent);
-                    finish();
+                    //loginclassteacher
+                    loginClassTeacher(
+                            teachersignupname,
+                            teachersignuppass
+                    );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
                 }
@@ -77,27 +80,31 @@ public class Teacher extends AppCompatActivity {
         });
         }
 
-    private void fetchAllClassTeacher() {
-        Log.d(TAG, "fetch_classteacher: "+"called");
+    private void loginClassTeacher() {
+    }
+
+    private void loginClassTeacher(
+            String teachername,
+            String teacherpass) {
+        Log.d(TAG, "loginClassTeacher: "+"called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
-        Call<List<ClassTeacherResponseObject>> call = repository.fetchAllClassTeacher();
+        Call<List<ClassTeacherResponseObject>> call = repository.loginClassTeacher(
+                teachername,
+                teacherpass
+        );
         call.enqueue(new Callback<List<ClassTeacherResponseObject>>() {
             @Override
             public void onResponse(Call<List<ClassTeacherResponseObject>> call, retrofit2.Response<List<ClassTeacherResponseObject>> response) {
                 Log.d(TAG, "onResponse: "+response);
-                Log.d(TAG, "onResponse: "+response.body().get(0));
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
-                    List<ClassTeacherResponseObject> classTeacherResponseObjectList = response.body();
-                    if (classTeacherResponseObjectList != null)
-                        Toast.makeText(Teacher.this,"Successful",Toast.LENGTH_SHORT).show();
-                    //getBaseContext(),
-                    //"Successful"+adminResponseObjectList.get(4).getAdminname(),
-                    // Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Teacher.this, DashboardTeacher.class);
+                    startActivity(intent);
+                    finish();
                 }else {
-                    Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... "+response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Error!!!"+response.message(), Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<ClassTeacherResponseObject>> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
@@ -107,20 +114,16 @@ public class Teacher extends AppCompatActivity {
         });
     }
 
-    private Boolean validateInfo(String classteachername, String classteacherpass) {
-            if (classteachername.length()==0){
+    private Boolean validateInfo(String teachersignupname, String teachersignuppass) {
+            if (teachersignupname.length()==0){
                 edtteachername.requestFocus();
                 edtteachername.setError("Field cannot be empty");
                 return false;
-            }else if (!classteachername.matches("[a-zA]+")){
-                edtteachername.requestFocus();
-                edtteachername.setError("Enter Aplhabets Only!!");
-                return false;
-            }else if (classteacherpass.length()==0){
+            }else if (teachersignuppass.length()==0){
                 edtteacherpass.requestFocus();
                 edtteacherpass.setError("Field cannot be empty");
                 return false;
-            }else if (classteacherpass.length()<=5){
+            }else if (teachersignuppass.length()<=5){
                 edtteacherpass.requestFocus();
                 edtteacherpass.setError("Minimum 6 Characters Required!!");
                 return false;

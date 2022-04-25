@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.splashscreen.response_object.AdminResponseObject;
 import com.example.splashscreen.response_object.HeadTeacherResponseObject;
+import com.example.splashscreen.response_object.ParentResponseObject;
 import com.example.splashscreen.services.EndPoints;
 import com.example.splashscreen.services.Repository;
 import com.example.splashscreen.services.RetrofitClientInstance;
@@ -37,21 +38,23 @@ public class HeadTeacher extends AppCompatActivity {
         TextView tvheadteachersignup = (TextView) findViewById(R.id.tvheadteachersignup);
         TextView tvheadteacherforgot = (TextView) findViewById(R.id.tvheadteacherforgot);
 
-        // fetch test
-        fetchAllHeadTeacher();
+        //loginheadteacher
+        loginHeadTeacher();
 
         headteacherlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get all the values
-                String headteachername = edtheadteachername.getText().toString();
-                String headteacherpass = edtheadteacherpass.getText().toString();
+                String headteachersignupname = edtheadteachername.getText().toString();
+                String headteachersignuppass = edtheadteacherpass.getText().toString();
 
-                boolean check = validateInfo(headteachername,headteacherpass);
+                boolean check = validateInfo(headteachersignupname,headteachersignuppass);
                 if (check==true){
-                    Intent intent = new Intent(HeadTeacher.this, DashboardHeadTeacher.class);
-                    startActivity(intent);
-                    finish();
+                    //loginheadteacher
+                    loginHeadTeacher(
+                            headteachersignupname,
+                            headteachersignuppass
+                    );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
                 }
@@ -78,27 +81,32 @@ public class HeadTeacher extends AppCompatActivity {
 
     }
 
-    private void fetchAllHeadTeacher() {
-        Log.d(TAG, "fetch_headteacher: "+"called");
+    private void loginHeadTeacher() {
+    }
+
+    //login head teacher method
+    private void loginHeadTeacher(
+            String headteachername,
+            String headteacherpass)
+    {Log.d(TAG, "loginHeadTeacher: "+"called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
-        Call<List<HeadTeacherResponseObject>> call = repository.fetchAllHeadTeacher();
+        Call<List<HeadTeacherResponseObject>> call = repository.loginHeadTeacher(
+                headteachername,
+                headteacherpass
+        );
         call.enqueue(new Callback<List<HeadTeacherResponseObject>>() {
             @Override
             public void onResponse(Call<List<HeadTeacherResponseObject>> call, retrofit2.Response<List<HeadTeacherResponseObject>> response) {
                 Log.d(TAG, "onResponse: "+response);
-                Log.d(TAG, "onResponse: "+response.body().get(0));
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
-                    List<HeadTeacherResponseObject> headTeacherResponseObjectList = response.body();
-                    if (headTeacherResponseObjectList != null)
-                        Toast.makeText(HeadTeacher.this,"Successful",Toast.LENGTH_SHORT).show();
-                    //getBaseContext(),
-                    //"Successful"+adminResponseObjectList.get(4).getAdminname(),
-                    // Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(HeadTeacher.this, DashboardHeadTeacher.class);
+                    startActivity(intent);
+                    finish();
                 }else {
-                    Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... "+response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Error!!!"+response.message(), Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<HeadTeacherResponseObject>> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
@@ -107,6 +115,7 @@ public class HeadTeacher extends AppCompatActivity {
             }
         });
     }
+
 
     private Boolean validateInfo(String headteachername, String headteacherpass) {
         if (headteachername.length() == 0) {

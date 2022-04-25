@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.splashscreen.response_object.ClassTeacherResponseObject;
@@ -25,8 +26,9 @@ public class TeacherSignUp extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     EditText edtclassnamesignup,edtclassmailsignup,edtclasscontactsignup,edtclasspasssignup;
-    RadioButton radiobtnclassmale,radiobtnclassfemale;
-    RadioGroup radioGroup;
+    RadioButton radiobtnteachergen;
+    TextView tvclassteacheraccount;
+    RadioGroup teachergender;
     Button signupbtnteacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,16 @@ public class TeacherSignUp extends AppCompatActivity {
         edtclassmailsignup = (EditText) findViewById(R.id.edtclassmailsignup);
         edtclasscontactsignup = (EditText) findViewById(R.id.edtclasscontactsignup);
         edtclasspasssignup = (EditText) findViewById(R.id.edtclasspasssignup);
+        teachergender = (RadioGroup) findViewById(R.id.teachergender);
+        tvclassteacheraccount = (TextView) findViewById(R.id.tvclassteacheraccount);
+
+        tvclassteacheraccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TeacherSignUp.this,Teacher.class);
+                startActivity(intent);
+            }
+        });
 
         signupbtnteacher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +59,19 @@ public class TeacherSignUp extends AppCompatActivity {
                 String teachersignupmail = edtclassmailsignup.getText().toString();
                 String teachersignupcontact = edtclasscontactsignup.getText().toString();
                 String teachersignuppass = edtclasspasssignup.getText().toString();
+                int selectedId = teachergender.getCheckedRadioButtonId();
+                radiobtnteachergen = (RadioButton) findViewById(selectedId);
+                String teachersigngender = radiobtnteachergen.getText().toString();
 
-                boolean check = validateInfo(teachersignupname,teachersignupmail,teachersignupcontact,teachersignuppass);
+                boolean check = validateInfo(teachersignupname,teachersignupmail,teachersignupcontact,teachersignuppass,teachersigngender);
                 if (check==true){
                     // create classteacher
                     createHeadTeacher(
                             teachersignupname,
                             teachersignupmail,
                             teachersignupcontact,
-                            teachersignuppass
+                            teachersignuppass,
+                            teachersigngender
                     );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
@@ -68,14 +84,16 @@ public class TeacherSignUp extends AppCompatActivity {
             String teachername,
             String teachermail,
             String teachercontact,
-            String teacherpass) {
+            String teacherpass,
+            String teachergender) {
         Log.d(TAG, "createClassTeacher: " + "called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
         Call<ClassTeacherResponseObject> call = repository.createClassTeacher(
                 teachername,
                 teachermail,
                 teachercontact,
-                teacherpass
+                teacherpass,
+                teachergender
         );
         call.enqueue(new Callback<ClassTeacherResponseObject>() {
             @Override
@@ -100,7 +118,7 @@ public class TeacherSignUp extends AppCompatActivity {
         });
     }
 
-    private boolean validateInfo(String teachersignupname, String teachersignupmail, String teachersignupcontact, String teachersignuppass) {
+    private boolean validateInfo(String teachersignupname, String teachersignupmail, String teachersignupcontact, String teachersignuppass, String teachersigngender) {
         if (teachersignupname.length()==0){
             edtclassnamesignup.requestFocus();
             edtclassnamesignup.setError("Field cannot be empty");
@@ -117,8 +135,11 @@ public class TeacherSignUp extends AppCompatActivity {
             edtclasspasssignup.requestFocus();
             edtclasspasssignup.setError("Field cannot be empty");
             return false;
-        }
-        else if (teachersignuppass.length()<=5){
+        }else if (teachersigngender.length()==0) {
+            radiobtnteachergen.requestFocus();
+            radiobtnteachergen.setError("Select one");
+            return false;
+        }else if (teachersignuppass.length()<=5){
             edtclasspasssignup.requestFocus();
             edtclasspasssignup.setError("Minimum 6 Characters Required!!");
             return false;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.splashscreen.response_object.AdminResponseObject;
+import com.example.splashscreen.response_object.ParentResponseObject;
 import com.example.splashscreen.services.EndPoints;
 import com.example.splashscreen.services.Repository;
 import com.example.splashscreen.services.RetrofitClientInstance;
@@ -42,21 +43,23 @@ public class Admin extends AppCompatActivity  {
         TextView tvadmsignup = (TextView) findViewById(R.id.tvadmsignup);
         TextView tvadmforgot = (TextView) findViewById(R.id.tvadmforgot);
 
-        // fetch test
-        fetchAllAdmin();
+        //loginparent
+        loginAdmin();
 
         admlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get all the values
-                String adminname = edtadmname.getText().toString();
-                String adminpass = edtadmpass.getText().toString();
+                String adminsignupname = edtadmname.getText().toString();
+                String adminsignuppass = edtadmpass.getText().toString();
                 
-                boolean check = validateInfo(adminname,adminpass);
+                boolean check = validateInfo(adminsignupname,adminsignuppass);
                 if (check ==true){
-                    Intent intent = new Intent(Admin.this, DashboardAdmin.class);
-                    startActivity(intent);
-                    finish();
+                    //loginadmin
+                    loginAdmin(
+                            adminsignupname,
+                            adminsignuppass
+                    );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
                 }
@@ -83,16 +86,53 @@ public class Admin extends AppCompatActivity  {
 
     }
 
-    private Boolean validateInfo(String adminname, String adminpass) {
-        if (adminname.length()==0){
+    private void loginAdmin() {
+    }
+
+    //login admin
+    private void loginAdmin(
+            String name,
+            String password) {
+        Log.d(TAG, "loginAdmin: " + "called");
+        Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
+        Call<List<AdminResponseObject>> call = repository.loginAdmin(
+                name,
+                password
+        );
+        call.enqueue(new Callback<List<AdminResponseObject>>() {
+            @Override
+            public void onResponse(Call<List<AdminResponseObject>> call, retrofit2.Response<List<AdminResponseObject>> response) {
+                Log.d(TAG, "onResponse: " + response);
+                Log.d(TAG, "onResponse: " + response.body());
+                if (response.isSuccessful() && response.code() == 200) {
+                    Intent intent = new Intent(Admin.this, DashboardAdmin.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getBaseContext(), "Error!!!" + response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AdminResponseObject>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                System.out.println();
+                Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private Boolean validateInfo(String adminsignupname, String adminsignuppass) {
+        if (adminsignupname.length()==0){
             edtadmname.requestFocus();
             edtadmname.setError("Field cannot be empty");
             return false;
-        }else if (adminpass.length()==0){
+        }else if (adminsignuppass.length()==0){
             edtadmpass.requestFocus();
             edtadmpass.setError("Field cannot be empty");
             return false;
-        }else if (adminpass.length()<=5){
+        }else if (adminsignuppass.length()<=5){
             edtadmpass.requestFocus();
             edtadmpass.setError("Minimum 6 Characters Required!!");
             return false;
@@ -101,34 +141,4 @@ public class Admin extends AppCompatActivity  {
         }
     }
 
-    public void fetchAllAdmin(
-    ) {
-        Log.d(TAG, "fetchAdmin: "+"called");
-        Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
-        Call<List<AdminResponseObject>> call = repository.fetchAllAdmin();
-        call.enqueue(new Callback<List<AdminResponseObject>>() {
-            @Override
-            public void onResponse(Call<List<AdminResponseObject>> call, retrofit2.Response<List<AdminResponseObject>> response) {
-                Log.d(TAG, "onResponse: "+response);
-                Log.d(TAG, "onResponse: "+response.body().get(0));
-                if (response.isSuccessful() && response.code() == 200) {
-                    List<AdminResponseObject> adminResponseObjectList = response.body();
-                    if (adminResponseObjectList != null)
-                    Toast.makeText(Admin.this,"Successful",Toast.LENGTH_SHORT).show();
-                            //getBaseContext(),
-                             //"Successful"+adminResponseObjectList.get(4).getAdminname(),
-                           // Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... "+response.message(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<AdminResponseObject>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-                System.out.println();
-                Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-} // end class
+    }// end class

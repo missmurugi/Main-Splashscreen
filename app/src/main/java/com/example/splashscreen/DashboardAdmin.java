@@ -33,50 +33,50 @@ public class DashboardAdmin extends AppCompatActivity {
             }
         });
 
-        /*tvaddadmin.setOnClickListener(new View.OnClickListener() {
+        tvaddadmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardAdmin.this,AdminAdd.class);
+                Intent intent = new Intent(DashboardAdmin.this,AdminSignUp.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
 
-        /*tvaddparent.setOnClickListener(new View.OnClickListener() {
+        tvaddparent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardAdmin.this,ParentAdd.class);
+                Intent intent = new Intent(DashboardAdmin.this,ParentSignUp.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
 
-        /*tvaddheadteacher.setOnClickListener(new View.OnClickListener() {
+        tvaddheadteacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardAdmin.this,HeadTeacherAdd.class);
+                Intent intent = new Intent(DashboardAdmin.this,HeadTeacherSignUp.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
 
-        /*tvaddbusdriver.setOnClickListener(new View.OnClickListener() {
+        tvaddbusdriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardAdmin.this,DriverAdd.class);
+                Intent intent = new Intent(DashboardAdmin.this,DriverSignUp.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
 
 
-        /*tvaddclassteacher.setOnClickListener(new View.OnClickListener() {
+        tvaddclassteacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardAdmin.this,ClassTeacherAdd.class);
+                Intent intent = new Intent(DashboardAdmin.this,TeacherSignUp.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
     }
 }

@@ -18,6 +18,8 @@ import com.example.splashscreen.services.EndPoints;
 import com.example.splashscreen.services.Repository;
 import com.example.splashscreen.services.RetrofitClientInstance;
 
+import org.w3c.dom.Text;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -25,8 +27,9 @@ public class AdminSignUp extends AppCompatActivity {
     
     private static final String TAG = "TAG";
     EditText edtadmnamesignup,edtadmmailsignup,edtadmpasssignup,edtadmcontactreg;
-    RadioButton radiobtnadmmale,radiobtnadmfemale;
-    RadioGroup radioGroup;
+    RadioButton radiobtnadmingen;
+    TextView tvadminaccount;
+    RadioGroup agender;
     Button signupbtnadm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,16 @@ public class AdminSignUp extends AppCompatActivity {
         edtadmmailsignup = (EditText) findViewById(R.id.edtadmmailsignup);
         edtadmpasssignup = (EditText) findViewById(R.id.edtadmpasssignup);
         edtadmcontactreg = (EditText) findViewById(R.id.edtadmcontactreg);
+        tvadminaccount = (TextView) findViewById(R.id.tvadminaccount);
+        agender = (RadioGroup) findViewById(R.id.agender);
+
+        tvadminaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminSignUp.this,Admin.class);
+                startActivity(intent);
+            }
+        });
 
         signupbtnadm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +60,19 @@ public class AdminSignUp extends AppCompatActivity {
                 String adminsignupmail = edtadmmailsignup.getText().toString();
                 String adminsignuppass = edtadmpasssignup.getText().toString();
                 String adminsignupcontact = edtadmcontactreg.getText().toString();
+                int selectedId = agender.getCheckedRadioButtonId();
+                radiobtnadmingen = (RadioButton) findViewById(selectedId);
+                String adminsigngender = radiobtnadmingen.getText().toString();
 
-                boolean check = validateInfo(adminsignupname,adminsignupmail,adminsignuppass,adminsignupcontact);
+                boolean check = validateInfo(adminsignupname,adminsignupmail,adminsignuppass,adminsignupcontact,adminsigngender);
                 if (check==true){
                     // create admin
                     createAdmin(
                             adminsignupname,
                             adminsignupmail,
                             adminsignuppass,
-                            adminsignupcontact
+                            adminsignupcontact,
+                            adminsigngender
                     );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
@@ -64,7 +81,7 @@ public class AdminSignUp extends AppCompatActivity {
         });
     }
 
-    private boolean validateInfo(String adminsignupname, String adminsignupmail, String adminsignuppass,String adminsignupcontact) {
+    private boolean validateInfo(String adminsignupname, String adminsignupmail, String adminsignuppass,String adminsignupcontact, String adminsigngender) {
         if (adminsignupname.length()==0){
             edtadmnamesignup.requestFocus();
             edtadmnamesignup.setError("Field cannot be empty");
@@ -81,6 +98,10 @@ public class AdminSignUp extends AppCompatActivity {
             edtadmpasssignup.requestFocus();
             edtadmpasssignup.setError("Field cannot be empty");
             return false;
+        }else if (adminsigngender.length()==0) {
+            radiobtnadmingen.requestFocus();
+            radiobtnadmingen.setError("Select one");
+            return false;
         }else if (adminsignuppass.length()<=5){
             edtadmpasssignup.requestFocus();
             edtadmpasssignup.setError("Minimum 6 Characters Required!!");
@@ -94,7 +115,8 @@ public class AdminSignUp extends AppCompatActivity {
             String name,
             String email,
             String password,
-            String contact
+            String contact,
+            String admingender
             ) {
         Log.d(TAG, "createAdmin: "+"called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
@@ -102,16 +124,17 @@ public class AdminSignUp extends AppCompatActivity {
                 name,
                 email,
                 password,
-                contact
+                contact,
+                admingender
                 );
         call.enqueue(new Callback<AdminResponseObject>() {
             @Override
             public void onResponse(Call<AdminResponseObject> call, retrofit2.Response<AdminResponseObject> response) {
                 Log.d(TAG, "onResponse: "+response);
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
                     Intent intent = new Intent(AdminSignUp.this, Admin.class);
                     startActivity(intent);
-                    finish();
                 }else {
                     Toast.makeText(getBaseContext(), "Error!!!"+response.message(), Toast.LENGTH_LONG).show();
                 }

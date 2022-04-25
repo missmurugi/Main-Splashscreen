@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.splashscreen.response_object.AdminResponseObject;
@@ -26,8 +27,9 @@ public class ParentSignUp extends AppCompatActivity {
     private static final String TAG = "TAG";
     EditText edtparentnamesignup, edtparentmailsignup, edtparentpasssignup, edtparentcontactsignup, edtparentaddressignup, edtparentchildsignup;
     Button signupbtnparent;
-    RadioButton radiobtnadmmale, radiobtnadmfemale;
-    RadioGroup radioGroup;
+    TextView tvparentaccount;
+    RadioButton radiobtnparentgen;
+    RadioGroup pgender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,16 @@ public class ParentSignUp extends AppCompatActivity {
         edtparentcontactsignup = (EditText) findViewById(R.id.edtparentcontactsignup);
         edtparentchildsignup = (EditText) findViewById(R.id.edtparentchildsignup);
         edtparentaddressignup = (EditText) findViewById(R.id.edtparentaddressignup);
+        tvparentaccount = (TextView) findViewById(R.id.tvparentaccount);
+        pgender = (RadioGroup) findViewById(R.id.pgender);
+
+        tvparentaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ParentSignUp.this,Parent.class);
+                startActivity(intent);
+            }
+        });
 
         signupbtnparent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +65,11 @@ public class ParentSignUp extends AppCompatActivity {
                 String parentsignupcontact = edtparentcontactsignup.getText().toString();
                 String parentchildsignup = edtparentchildsignup.getText().toString();
                 String parentsignupaddress = edtparentaddressignup.getText().toString();
+                int selectedId = pgender.getCheckedRadioButtonId();
+                radiobtnparentgen = (RadioButton) findViewById(selectedId);
+                String parentsigngender = radiobtnparentgen.getText().toString();
 
-                boolean check = validateInfo(parentsignupname, parentsignupmail, parentsignuppassword, parentsignupcontact, parentchildsignup, parentsignupaddress);
+                boolean check = validateInfo(parentsignupname, parentsignupmail, parentsignuppassword, parentsignupcontact, parentchildsignup, parentsignupaddress,parentsigngender);
                 if (check == true) {
                     // create parent
                     createParent(
@@ -63,7 +78,8 @@ public class ParentSignUp extends AppCompatActivity {
                             parentsignuppassword,
                             parentsignupcontact,
                             parentchildsignup,
-                            parentsignupaddress
+                            parentsignupaddress,
+                            parentsigngender
                     );
                 } else {
                     Toast.makeText(getApplicationContext(), "Sorry Check Info again", Toast.LENGTH_SHORT).show();
@@ -86,7 +102,8 @@ public class ParentSignUp extends AppCompatActivity {
             String parentpassword,
             String parentcontact,
             String parentchild,
-            String parentaddress) {
+            String parentaddress,
+            String parentgender) {
         Log.d(TAG, "createParent: "+"called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
         Call<ParentResponseObject> call = repository.createParent(
@@ -95,21 +112,21 @@ public class ParentSignUp extends AppCompatActivity {
                 parentpassword,
                 parentcontact,
                 parentchild,
-                parentaddress
+                parentaddress,
+                parentgender
         );
         call.enqueue(new Callback<ParentResponseObject>() {
             @Override
             public void onResponse(Call<ParentResponseObject> call, retrofit2.Response<ParentResponseObject> response) {
                 Log.d(TAG, "onResponse: "+response);
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
                     Intent intent = new Intent(ParentSignUp.this, Parent.class);
                     startActivity(intent);
-                    finish();
                 }else {
                     Toast.makeText(getBaseContext(), "Error!!!"+response.message(), Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<ParentResponseObject> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
@@ -120,7 +137,7 @@ public class ParentSignUp extends AppCompatActivity {
     }
 
     //input validation
-    private boolean validateInfo(String parentsignupname, String parentsignupmail, String parentsignuppassword, String parentsignupcontact, String parentchildsignup, String parentsignupaddress) {
+    private boolean validateInfo(String parentsignupname, String parentsignupmail, String parentsignuppassword, String parentsignupcontact, String parentchildsignup, String parentsignupaddress, String parentsigngender) {
         if (parentsignupname.length()==0){
             edtparentnamesignup.requestFocus();
             edtparentnamesignup.setError("Field cannot be empty");
@@ -144,6 +161,10 @@ public class ParentSignUp extends AppCompatActivity {
         } else if (parentsignupaddress.length()==0){
             edtparentaddressignup.requestFocus();
             edtparentaddressignup.setError("Field cannot be empty");
+            return false;
+        }else if (parentsigngender.length()==0) {
+            radiobtnparentgen.requestFocus();
+            radiobtnparentgen.setError("Select one");
             return false;
         }else if (parentsignuppassword.length()<=5){
             edtparentpasssignup.requestFocus();

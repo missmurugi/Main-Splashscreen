@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.splashscreen.response_object.DriverResponseObject;
@@ -25,8 +26,9 @@ public class HeadTeacherSignUp extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     EditText edtheadnamesignup,edtheadmailsignup,edtheadcontactsignup,edtheadpasssignup;
-    RadioButton radiobtnheadmale,radiobtnheadfemale;
-    RadioGroup radioGroup;
+    RadioButton radiobtnheadgen;
+    TextView tvheadteacheraccount;
+    RadioGroup headteachergender;
     Button signupbtnheadteacher;
 
     @Override
@@ -39,8 +41,16 @@ public class HeadTeacherSignUp extends AppCompatActivity {
         edtheadmailsignup = (EditText) findViewById(R.id.edtheadmailsignup);
         edtheadcontactsignup = (EditText) findViewById(R.id.edtheadcontactsignup);
         edtheadpasssignup = (EditText) findViewById(R.id.edtheadpasssignup);
-        radiobtnheadmale = (RadioButton) findViewById(R.id.radiobtnheadmale);
-        radiobtnheadfemale = (RadioButton) findViewById(R.id.radiobtnheadfemale);
+        headteachergender = (RadioGroup) findViewById(R.id.headteachergender);
+        tvheadteacheraccount = (TextView) findViewById(R.id.tvheadteacheraccount);
+
+        tvheadteacheraccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HeadTeacherSignUp.this,HeadTeacher.class);
+                startActivity(intent);
+            }
+        });
 
         signupbtnheadteacher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,15 +60,19 @@ public class HeadTeacherSignUp extends AppCompatActivity {
                 String headteachersignupmail = edtheadmailsignup.getText().toString();
                 String headteachercontact = edtheadcontactsignup.getText().toString();
                 String headteachersignuppass = edtheadpasssignup.getText().toString();
+                int selectedId = headteachergender.getCheckedRadioButtonId();
+                radiobtnheadgen = (RadioButton) findViewById(selectedId);
+                String headteachersigngender = radiobtnheadgen.getText().toString();
 
-                boolean check = validateInfo(headteachersignupname,headteachersignupmail,headteachercontact,headteachersignuppass);
+                boolean check = validateInfo(headteachersignupname,headteachersignupmail,headteachercontact,headteachersignuppass,headteachersigngender);
                 if (check==true){
                     // create headteacher
                     createHeadTeacher(
                             headteachersignupname,
                             headteachersignupmail,
                             headteachercontact,
-                            headteachersignuppass
+                            headteachersignuppass,
+                            headteachersigngender
                     );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
@@ -71,23 +85,25 @@ public class HeadTeacherSignUp extends AppCompatActivity {
             String headteachername,
             String headteachermail,
             String headteachercontact,
-            String headteacherpass) {
+            String headteacherpass,
+            String headteachergender) {
         Log.d(TAG, "createHeadTeacher: " + "called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
         Call<HeadTeacherResponseObject> call = repository.createHeadTeacher(
                 headteachername,
                 headteachermail,
                 headteachercontact,
-                headteacherpass
+                headteacherpass,
+                headteachergender
         );
         call.enqueue(new Callback<HeadTeacherResponseObject>() {
             @Override
             public void onResponse(Call<HeadTeacherResponseObject> call, retrofit2.Response<HeadTeacherResponseObject> response) {
                 Log.d(TAG, "onResponse: " + response);
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
                     Intent intent = new Intent(HeadTeacherSignUp.this, HeadTeacher.class);
                     startActivity(intent);
-                    finish();
                 } else {
                     Toast.makeText(getBaseContext(), "Error!!!" + response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -103,7 +119,7 @@ public class HeadTeacherSignUp extends AppCompatActivity {
         });
     }
 
-    private boolean validateInfo(String headteachersignupname, String headteachersignupmail, String headteachercontact, String headteachersignuppass) {
+    private boolean validateInfo(String headteachersignupname, String headteachersignupmail, String headteachercontact, String headteachersignuppass, String headteachersigngender) {
         if (headteachersignupname.length()==0){
             edtheadnamesignup.requestFocus();
             edtheadnamesignup.setError("Field cannot be empty");
@@ -119,6 +135,10 @@ public class HeadTeacherSignUp extends AppCompatActivity {
         }else if (headteachersignuppass.length()==0) {
             edtheadpasssignup.requestFocus();
             edtheadpasssignup.setError("Field cannot be empty");
+            return false;
+        }else if (headteachersigngender.length()==0) {
+            radiobtnheadgen.requestFocus();
+            radiobtnheadgen.setError("Select one");
             return false;
         }
         else if (headteachersignuppass.length()<=5){

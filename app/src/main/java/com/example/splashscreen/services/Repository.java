@@ -28,10 +28,11 @@ public interface Repository {
             @Field("adminname") String name,
             @Field("adminemail") String email,
             @Field("adminpassword") String password,
-            @Field("admincontact") String contact
+            @Field("admincontact") String contact,
+            @Field("gender") String admingender
     );
-    @GET("fetch_admin")
-    Call<List<AdminResponseObject>> fetchAllAdmin();
+    //@GET("fetch_admin")
+    //Call<List<AdminResponseObject>> fetchAllAdmin();
 
     //creating parent
     @FormUrlEncoded
@@ -42,10 +43,11 @@ public interface Repository {
             @Field("parentsignuppassword") String parentpassword,
             @Field("parentsignupcontact") String parentcontact,
             @Field("parentchildsignup") String parentchild,
-            @Field("parentsignupaddress") String parentaddress
+            @Field("parentsignupaddress") String parentaddress,
+            @Field("gender") String parentgender
     );
-    @GET("fetch_parent")
-    Call<List<ParentResponseObject>> fetchAllParent();
+    //@GET("fetch_parent")
+    //Call<List<ParentResponseObject>> fetchAllParent();
 
     //creating driver
     @FormUrlEncoded
@@ -54,7 +56,8 @@ public interface Repository {
             @Field("driversignupname") String drivername,
             @Field("driversignupmail") String drivermail,
             @Field("driversignuppass") String driverpass,
-            @Field("driversignupcontact") String drivercontact
+            @Field("driversignupcontact") String drivercontact,
+            @Field("gender") String drivergender
     );
 
     @GET("fetch_driver")
@@ -77,10 +80,11 @@ public interface Repository {
             @Field("headteachersignupname") String headteachername,
             @Field("headteachersignupmail") String headteachermail,
             @Field("headteachercontact") String headteachercontact,
-            @Field("headteachersignuppass") String headteacherpass
+            @Field("headteachersignuppass") String headteacherpass,
+            @Field("gender") String headteachergender
     );
-    @GET("fetch_headteacher")
-    Call<List<HeadTeacherResponseObject>> fetchAllHeadTeacher();
+    //@GET("fetch_headteacher")
+    //Call<List<HeadTeacherResponseObject>> fetchAllHeadTeacher();
 
     //creating class teacher
     @FormUrlEncoded
@@ -89,9 +93,50 @@ public interface Repository {
             @Field("teachersignupname") String teachername,
             @Field("teachersignupmail") String teachermail,
             @Field("teachersignupcontact") String teachercontact,
+            @Field("teachersignuppass") String teacherpass,
+            @Field("gender") String classteachergender
+    );
+    //@GET("fetch_classteacher")
+    //Call<List<ClassTeacherResponseObject>> fetchAllClassTeacher();
+
+    //login parent
+    @FormUrlEncoded
+    @POST("login_parent")
+    Call<List<ParentResponseObject>> loginParent(
+            @Field("parentsignupname") String parentname,
+            @Field("parentsignuppassword") String parentpassword
+    );
+
+    //login admin
+    @FormUrlEncoded
+    @POST("login_admin")
+    Call<List<AdminResponseObject>> loginAdmin(
+            @Field("adminsignupname") String name,
+            @Field("adminsignuppass") String password
+    );
+
+    //login driver
+    @FormUrlEncoded
+    @POST("login_driver")
+    Call<List<DriverResponseObject>> loginDriver(
+            @Field("driversignupname") String drivername,
+            @Field("driversignuppass") String driverpass
+    );
+
+    //login headteacher
+    @FormUrlEncoded
+    @POST("login_headteacher")
+    Call<List<HeadTeacherResponseObject>> loginHeadTeacher(
+            @Field("headteachersignupname") String headteachername,
+            @Field("headteachersignuppass") String headteacherpass
+    );
+
+    //login teacher
+    @FormUrlEncoded
+    @POST("login_classteacher")
+    Call<List<ClassTeacherResponseObject>> loginClassTeacher(
+            @Field("teachersignupname") String teachername,
             @Field("teachersignuppass") String teacherpass
     );
-    @GET("fetch_classteacher")
-    Call<List<ClassTeacherResponseObject>> fetchAllClassTeacher();
 
 }

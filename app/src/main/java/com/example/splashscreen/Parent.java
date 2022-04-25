@@ -38,22 +38,24 @@ public class Parent extends AppCompatActivity  {
         edtparentpass = (EditText) findViewById(R.id.edtparentpass);
         TextView tvparentsignup = (TextView) findViewById(R.id.tvparentsignup);
         TextView tvparentforgot = (TextView) findViewById(R.id.tvparentforgot);
-
-        // fetch test
-        fetchAllParent();
+        
+        //loginparent
+        loginParent();
 
         parentlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get all the values
-                String parentname = edtparentname.getText().toString();
-                String parentpass = edtparentpass.getText().toString();
+                String parentsignupname = edtparentname.getText().toString();
+                String parentsignuppassword = edtparentpass.getText().toString();
 
-                boolean check = validateInfo(parentname,parentpass);
+                boolean check = validateInfo(parentsignupname,parentsignuppassword);
                 if (check==true){
-                    Intent intent = new Intent(Parent.this, ParentDashboard.class);
-                    startActivity(intent);
-                    finish();
+                    //loginparent
+                    loginParent(
+                            parentsignupname,
+                            parentsignuppassword
+                    );
                 }else {
                     Toast.makeText(getApplicationContext(),"Sorry Check Info again",Toast.LENGTH_SHORT).show();
                 }
@@ -79,27 +81,32 @@ public class Parent extends AppCompatActivity  {
         });
     }
 
-    private void fetchAllParent() {
-        Log.d(TAG, "fetchParent: "+"called");
+    private void loginParent() {
+    }
+
+    //login parent method
+    private void loginParent(
+            String parentname,
+            String parentpassword)
+    {Log.d(TAG, "loginParent: "+"called");
         Repository repository = RetrofitClientInstance.getRetrofitInstance(EndPoints.BASE_URL).create(Repository.class);
-        Call<List<ParentResponseObject>> call = repository.fetchAllParent();
+        Call<List<ParentResponseObject>> call = repository.loginParent(
+                parentname,
+                parentpassword
+        );
         call.enqueue(new Callback<List<ParentResponseObject>>() {
             @Override
             public void onResponse(Call<List<ParentResponseObject>> call, retrofit2.Response<List<ParentResponseObject>> response) {
                 Log.d(TAG, "onResponse: "+response);
-                Log.d(TAG, "onResponse: "+response.body().get(0));
+                Log.d(TAG,"onResponse: "+response.body());
                 if (response.isSuccessful() && response.code() == 200) {
-                    List<ParentResponseObject> parentResponseObjectList = response.body();
-                    if (parentResponseObjectList != null)
-                        Toast.makeText(Parent.this,"Successful",Toast.LENGTH_SHORT).show();
-                    //getBaseContext(),
-                    //"Successful"+adminResponseObjectList.get(4).getAdminname(),
-                    // Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Parent.this, ParentDashboard.class);
+                    startActivity(intent);
+                    finish();
                 }else {
-                    Toast.makeText(getBaseContext(), "Error! Check internet connection and try again... "+response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Error!!!"+response.message(), Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<ParentResponseObject>> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
@@ -109,16 +116,16 @@ public class Parent extends AppCompatActivity  {
         });
     }
 
-    private Boolean validateInfo(String parentname, String parentpass) {
+    private Boolean validateInfo(String parentname, String parentpassword) {
         if (parentname.length()==0){
             edtparentname.requestFocus();
             edtparentname.setError("Field cannot be empty");
             return false;
-        }else if (parentpass.length()==0){
+        }else if (parentpassword.length()==0){
             edtparentpass.requestFocus();
             edtparentpass.setError("Field cannot be empty");
             return false;
-        }else if (parentpass.length()<=5){
+        }else if (parentpassword.length()<=5){
             edtparentpass.requestFocus();
             edtparentpass.setError("Minimum 6 Characters Required!!");
             return false;
