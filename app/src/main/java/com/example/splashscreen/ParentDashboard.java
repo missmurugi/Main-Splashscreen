@@ -39,7 +39,7 @@ public class ParentDashboard extends AppCompatActivity {
         tvbusstatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ParentDashboard.this,MapsActivity.class);
+                Intent intent = new Intent(ParentDashboard.this,MapsParentsActivity.class);
                 startActivity(intent);
             }
         });

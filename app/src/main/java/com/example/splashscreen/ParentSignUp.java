@@ -35,6 +35,7 @@ public class ParentSignUp extends AppCompatActivity {
         setContentView(R.layout.activity_parent_sign_up);
 
         Button signupbtnparent = (Button) findViewById(R.id.signupbtnparent);
+        Button signinbtnparent = (Button) findViewById(R.id.signinbtnparent);
         edtparentnamesignup = (EditText) findViewById(R.id.edtparentnamesignup);
         edtparentmailsignup = (EditText) findViewById(R.id.edtparentmailsignup);
         edtparentpasssignup = (EditText) findViewById(R.id.edtparentpasssignup);
@@ -67,6 +68,14 @@ public class ParentSignUp extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Sorry Check Info again", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        signinbtnparent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ParentSignUp.this, Parent.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

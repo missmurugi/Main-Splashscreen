@@ -1,5 +1,6 @@
 package com.example.splashscreen;
 
+import android.Manifest;
 import android.app.assist.AssistStructure;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -18,7 +21,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(new ActivityResultContracts
+                        .RequestMultiplePermissions(), result -> {
+                    Boolean fineLocationGranted = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        fineLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_FINE_LOCATION, false);
+                    }
+                    Boolean coarseLocationGranted = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        coarseLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_COARSE_LOCATION,false);
+                    }
+                    if (fineLocationGranted != null && fineLocationGranted) {
+                        // Precise location access granted.
+                        Toast.makeText(this, "Location Permission for precise location granted", Toast.LENGTH_SHORT).show();
+                    } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                        // Only approximate location access granted.
+                        Toast.makeText(this, "Location Permission for Coarse location granted", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // No location access granted.
+                        Toast.makeText(this, "Location Permission Denied", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
 
+        locationPermissionRequest.launch(new String[] {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        });
         Button btnadminlogin = (Button) findViewById(R.id.btnadmlogin);
         btnadminlogin.setOnClickListener(this); // calling onClick() method
         Button btnparentlogin = (Button) findViewById(R.id.btnparentlogin);
