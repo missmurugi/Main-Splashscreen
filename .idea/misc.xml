@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_driver.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_driver_sign_up.xml" value="0.16767983789260385" />
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_maps.xml" value="0.34479166666666666" />
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_maps_parents.xml" value="0.34479166666666666" />
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_parent.xml" value="0.34479166666666666" />
+        <entry key="..\:/AndroidProjects/irene-2/app/src/main/res/layout/activity_parent_sign_up.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/drawable/splash_background.xml" value="0.1735" />
         <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Irene/AndroidStudioProjects/SplashScreen/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.20416666666666666" />

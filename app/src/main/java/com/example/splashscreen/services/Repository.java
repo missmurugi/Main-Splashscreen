@@ -4,6 +4,7 @@ package com.example.splashscreen.services;
 
 import com.example.splashscreen.response_object.AdminResponseObject;
 import com.example.splashscreen.response_object.ClassTeacherResponseObject;
+import com.example.splashscreen.response_object.DriverLocationResponseObject;
 import com.example.splashscreen.response_object.DriverResponseObject;
 import com.example.splashscreen.response_object.HeadTeacherResponseObject;
 import com.example.splashscreen.response_object.ParentResponseObject;
@@ -55,8 +56,19 @@ public interface Repository {
             @Field("driversignuppass") String driverpass,
             @Field("driversignupcontact") String drivercontact
     );
+
     @GET("fetch_driver")
     Call<List<DriverResponseObject>> fetchAllDriver();
+
+
+    @FormUrlEncoded
+    @POST("add_driver_location")
+    Call<DriverLocationResponseObject> createDriverLocation(
+            @Field("driver_id") String driver_id,
+            @Field("map_lat") String map_lat,
+            @Field("map_long") String map_long,
+            @Field("datetime_added") String datetime_added
+    );
 
     //creatingg head teacher
     @FormUrlEncoded

@@ -35,6 +35,7 @@ public class DriverSignUp extends AppCompatActivity {
         setContentView(R.layout.activity_driver_sign_up);
 
         Button signupbtndriver = (Button) findViewById(R.id.signupbtndriver);
+        Button signinbtndriver = (Button) findViewById(R.id.signinbtndriver);
         edtdrivernamesignup = (EditText) findViewById(R.id.edtdrivernamesignup);
         edtdrivermailsignup = (EditText) findViewById(R.id.edtdrivermailsignup);
         edtdriverpasssignup = (EditText) findViewById(R.id.edtdriverpasssignup);
@@ -90,6 +91,41 @@ public class DriverSignUp extends AppCompatActivity {
         }
     }
     });
+        signinbtndriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DriverSignUp.this, Driver.class);
+                startActivity(intent);
+                finish();
+            }
+
+            private boolean validateInfo(String driversignupname, String driversignupmail, String driversignuppass, String driversignupcontact) {
+                if (driversignupname.length()==0){
+                    edtdrivernamesignup.requestFocus();
+                    edtdrivernamesignup.setError("Field cannot be empty");
+                    return false;
+                }else if (driversignupmail.length()==0){
+                    edtdrivermailsignup.requestFocus();
+                    edtdrivermailsignup.setError("Field cannot be empty");
+                    return false;
+                }else if (driversignuppass.length()==0) {
+                    edtdriverpasssignup.requestFocus();
+                    edtdriverpasssignup.setError("Field cannot be empty");
+                    return false;
+                }else if (driversignupcontact.length()==0) {
+                    edtdrivercontactsignup.requestFocus();
+                    edtdrivercontactsignup.setError("Field cannot be empty");
+                    return false;
+                }
+                else if (driversignuppass.length()<=5){
+                    edtdriverpasssignup.requestFocus();
+                    edtdriverpasssignup.setError("Minimum 6 Characters Required!!");
+                    return false;
+                }else{
+                    return  true;
+                }
+            }
+        });
     }
 
     private void createDriver(
